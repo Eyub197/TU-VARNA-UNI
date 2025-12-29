@@ -15,7 +15,7 @@ void printMainMenu() {
     cout << "4. Sort by age" << endl;
     cout << "5. Save contestants to file or load them from one" << endl;
     cout << "6. Print contestants sorted by age and name or search contestant by age and gender" << endl;
-    cout << "7. Sort contestants into groups and print them or show winner" << endl;
+    cout << "7. Sort contestants into groups and print them or show winners" << endl;
     cout << "8. Leave" << endl;
 }
 
@@ -32,7 +32,7 @@ void handleSubmenuThree(const Contestant contestants[], int numOfContestants) {
     do {
 
         do {
-            printSubmenu(3, "print youngest contestants", "search contestant by name");
+            printSubmenu(3, "Print youngest contestants", "Search contestant by name");
             cout << "Your choice: ";
         } while (!isValidInt(optionThreesubmenuChoice, 1, 3));
 
@@ -77,7 +77,7 @@ void handleSubmenuSix(const Contestant contestants[], int numOfContestants) {
     do {
 
         do {
-            printSubmenu(6, "Print contestants sorted by age", "Search contestant by age and gender");
+            printSubmenu(6, "Print contestants sorted by age and name", "Search contestant by age and gender");
             cout << "Your choice: ";
         } while (!isValidInt(optionSixSubmenuChoice, 1, 3));
 
@@ -97,7 +97,6 @@ void handleSubmenuSeven(const Contestant contestants[], int numOfContestants) {
         do {
             printSubmenu(7, "Sort contestants into groups by age and print them", "Print winner for every category");
             cout << "Your choice: ";
-            cout << endl;
         } while (!isValidInt(optionSevenSubmenuChoice, 1, 3));
 
         switch (optionSevenSubmenuChoice) {
@@ -121,15 +120,21 @@ int getValidMainMenuChoice() {
 
 void app() {
     int menuChoice;
-    int countOfContestants = 0;
+    int countOfContestants = 12;
 
     Contestant contestants[MAX_NUM_OF_CONTESTANTS] = {
-        {401, "Nikolay Nikolaev", 21, "m", 100.0, 120.0, 40.0, 40.0},
-        {402, "Vasil Vasilev", 21, "m", 90.0, 120.0, 40.0, 40.0},
-        {403, "Stefan Stefanov", 21, "m", 110.0, 120.0, 40.0, 40.0},
-        {404, "Winner Winnerov", 21, "m", 120.0, 120.0, 40.0, 40.0},
-        {405, "Todor Todorov", 21, "m", 140.0, 120.0, 40.0, 40.0},
-        {406, "Boris Borisov", 21, "m", 130.0, 120.0, 40.0, 40.0}
+        {1, "John Smith", 21, "m", 116.0, 120.0, 40.0, 40.0},
+        {2, "Emily Jones", 18, "f", 95.4, 95.0, 30.0, 34.0},
+        {3, "Michael Brown", 24, "m", 135.2, 125.0, 42.0, 41.0},
+        {4, "Jessica Davis", 15, "f", 102.0, 90.0, 28.0, 32.0},
+        {5, "David Wilson", 19, "m", 110.0, 130.0, 45.0, 45.0},
+        {6, "Sarah Miller", 22, "f", 85.7, 100.0, 32.0, 36.0},
+        {7, "Chris Lee", 14, "m", 99.6, 110.0, 35.0, 36.0},
+        {8, "Emily Jones", 14, "f", 96.8, 98.0, 31.0, 35.0},
+        {9, "Daniel Garcia", 17, "m", 117.1, 115.0, 38.0, 39.0},
+        {10, "Laura Rodriguez", 20, "f", 80.1, 92.0, 29.0, 33.0},
+        {11, "James White", 23, "m", 120.5, 128.0, 41.0, 42.0},
+        {12, "Linda Harris", 16, "f", 88.0, 92.0, 29.0, 33.0}
     };
 
     loadFromFile(contestants, countOfContestants);
