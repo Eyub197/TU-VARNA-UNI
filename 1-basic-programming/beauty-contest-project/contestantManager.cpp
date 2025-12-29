@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -96,7 +97,7 @@ float getCircumference(string typeOfCircumference, float min, float max) {
     float circumference;
 
     do {
-        cout << typeOfCircumference << " circumference " << min << "cm"<< " - " << max << "cm :";
+        cout << typeOfCircumference << " circumference " << fixed << setprecision(1) << min << "cm"<< " - " << max << "cm :";
         cin >> circumference;
 
         if (!cin) {
@@ -116,15 +117,21 @@ float getCircumference(string typeOfCircumference, float min, float max) {
     return circumference;
 }
 
+float findScore(const Contestant contestant) {
+    float denominator = contestant.shoulderCircumference + contestant.neckCircumference + contestant.calfCircumference;
+    return contestant.hipCircumference / denominator;
+}
+
 void printContestant(Contestant contestant) {
     cout << "Number: " << contestant.number << endl;
     cout << "Name: " << contestant.name << endl;
     cout << "Age: " << contestant.age  << endl;
     cout << "Gender: " << contestant.gender << endl;
-    cout << "Hip circumference: " << contestant.hipCircumference << endl;
-    cout << "Shoulder circumference: " << contestant.shoulderCircumference << endl;
-    cout << "Neck circumference: " << contestant.neckCircumference << endl;
-    cout << "Calf circumference: " << contestant.calfCircumference << endl;
+    cout << "Hip circumference: " << fixed << setprecision(1) << contestant.hipCircumference << endl;
+    cout << "Shoulder circumference: " << fixed << setprecision(1) << contestant.shoulderCircumference << endl;
+    cout << "Neck circumference: " << fixed << setprecision(1) << contestant.neckCircumference << endl;
+    cout << "Calf circumference: " << fixed << setprecision(1) << contestant.calfCircumference << endl;
+    cout << "Score (P): " << fixed << setprecision(2) << findScore(contestant) << endl;
     cout << endl;
 }
 
@@ -177,10 +184,6 @@ void sortByAgeAndName(Contestant arrayToSort[], int numOfContestants) {
     }
 }
 
-float findScore(const Contestant contestant) {
-    float denominator = contestant.shoulderCircumference + contestant.neckCircumference + contestant.calfCircumference;
-    return contestant.hipCircumference / denominator;
-}
 
 ScoreCategories categorizeByScore(const Contestant contestants[], int numOfContestants) {
     ScoreCategories categories;
@@ -192,7 +195,7 @@ ScoreCategories categorizeByScore(const Contestant contestants[], int numOfConte
             copyArrayWithDiffrentIndexes(contestants, categories.winners, contestant, categories.countOfWinners);
             categories.countOfWinners++;
         }
-        else if (score > WINNER_SCORE_MAX) {
+        else if (score >= WINNER_SCORE_MAX) {
             copyArrayWithDiffrentIndexes(contestants, categories.highP, contestant, categories.countOfHighP);
             categories.countOfHighP++;
         }
@@ -454,33 +457,58 @@ void searchContestantByAgeAndGender(const Contestant contestants[], int numOfCon
 }
 
 void findWinnerForCategory(const Contestant contestants[], int numOfContestants) {
+
     if (!checkContestants(numOfContestants)) {
+
         return;
+
     }
 
     ScoreCategories categories = categorizeByScore(contestants, numOfContestants);
 
+
+
     sortByScoreDescending(categories.winners, categories.countOfWinners);
+
     sortByScoreAscending(categories.highP, categories.countOfHighP);
+
     sortByScoreAscending(categories.lowP, categories.countOfLowP);
 
+
+
+    cout << "--- Winners (Score: " << fixed << setprecision(2) << WINNER_SCORE_MIN << "-" << WINNER_SCORE_MAX << ") ---" << endl;
+
     if (categories.countOfWinners == 0) {
-         cout << "There are no winners" << endl;
+         cout << endl;
+         cout << "There are no winners in this category" << endl;
     } else printContestants(categories.winners, categories.countOfWinners);
 
+    cout << endl;
+
+    cout << "--- High P Contestants (Score: >=" << fixed << setprecision(2) << WINNER_SCORE_MAX << ") ---" << endl;
+
     if (categories.countOfHighP == 0) {
+        cout << endl;
         cout << "There were no contestants with high P" << endl;
     } else  printContestants(categories.highP, categories.countOfHighP);
 
+    cout << endl;
+
+    cout << "--- Low P Contestants (Score: <" << fixed << setprecision(2) << WINNER_SCORE_MIN << ") ---" << endl;
+
     if (categories.countOfLowP == 0){
-       cout << "There were no contestants with low P" << endl ;
+        cout << endl;
+        cout << "There were no contestants with low P" << endl ;
     } else printContestants(categories.lowP, categories.countOfLowP);
+
+    cout << endl;
 }
 
 void printContestantsGroupedByAge(const Contestant contestants[], int numOfContestants) {
     if (!checkContestants(numOfContestants)) {
         return;
     }
+
     AgeCategories ageCategories = groupByAge(contestants, numOfContestants);
 
 
@@ -519,17 +547,22 @@ void findAndPrintWinnersForAllCategories(const Contestant contestants[], int num
         return;
     }
 
+    cout << endl;
     AgeCategories ageCategories = groupByAge(contestants, numOfContestants);
-    cout << "--- Winners: age " << AGE_GROUP_ONE_MIN << " - " << AGE_GROUP_ONE_MAX << " ---"<< endl;
+    cout << "--- Contestants: age " << AGE_GROUP_ONE_MIN << " - " << AGE_GROUP_ONE_MAX << " ---"<< endl;
+    cout << endl;
     findWinnerForCategory(ageCategories.contestantsGroupAge14to16, ageCategories.countOfContestantsGroupAge14to16);
 
-    cout << "--- Winners: age " << AGE_GROUP_TWO_MIN << " - " << AGE_GROUP_TWO_MAX << " ---"<< endl;
+    cout << "--- Contestants: age " << AGE_GROUP_TWO_MIN << " - " << AGE_GROUP_TWO_MAX << " ---"<< endl;
+    cout << endl;
     findWinnerForCategory(ageCategories.contestantsGroupAge17to19, ageCategories.countOfContestantsGroupAge17to19);
 
 
-    cout << "--- Winners: age " << AGE_GROUP_THREE_MIN << " - " << AGE_GROUP_THREE_MAX << " ---"<< endl;
+    cout << "--- Contestants: age " << AGE_GROUP_THREE_MIN << " - " << AGE_GROUP_THREE_MAX << " ---"<< endl;
+    cout << endl;
     findWinnerForCategory(ageCategories.contestantsGroupAge20to22, ageCategories.countOfContestantsGroupAge20to22);
 
-    cout << "--- Winners: age " << AGE_GROUP_FOUR_MIN << " - " << AGE_GROUP_FOUR_MAX << " ---"<< endl;
+    cout << "--- Contestants: age " << AGE_GROUP_FOUR_MIN << " - " << AGE_GROUP_FOUR_MAX << " ---"<< endl;
+    cout << endl;
     findWinnerForCategory(ageCategories.contestantsGroupAge23to25, ageCategories.countOfContestantsGroupAge23to25);
 }
