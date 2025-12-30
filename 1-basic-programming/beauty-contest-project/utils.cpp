@@ -15,7 +15,7 @@ bool isValidName(const char* name) {
     for (int i = 0; name[i] != '\0'; i++) {
         char c = name[i];
         if (!isalpha(c) && !isspace(c))  {
-            cout << "Names should containt only letters and spaces" << endl;
+            cout << "Names should contain only letters and spaces" << endl;
             return false;
         }
     }
