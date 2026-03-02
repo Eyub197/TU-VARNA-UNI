@@ -1,70 +1,61 @@
-#include <algorithm>
+
+// matrix int a[20][20]
+// 3 < n <= 20
+// n = 5
+// | 0 20 19 17 14
+// | 1 0 18 16 13
+// | 2 5 0 15 12
+// | 3 6 8 0 11
+// | 4 7 9 10 0
+//
+
+// matrix population
+
+#include <iomanip>
 #include <iostream>
 
 using namespace std;
 
-/**
- * TU Varna - ASD / UP
- * Problem: array shifting
- */
-
-// Helper function to print raw arrays
-void printArray(int arr[], int n) {
-  for (int i = 0; i < n; i++) {
-    cout << arr[i] << (i == n - 1 ? "" : " ");
-  }
-  cout << endl;
+int getN() {
+  int userInput;
+  do {
+    cout << "Enter a number n between 3 and 20: ";
+    cin >> userInput;
+  } while (userInput <= 3 || userInput > 20);
+  return userInput;
 }
 
-void handlePositiveKValue() {}
+void populateMatrix(int a[20][20], int n) {
+  int currentVal = 1;
+
+  for (int i = 0; i < n; i++) {
+    a[i][i] = 0;
+  }
+
+  for (int j = 0; j < n; j++) {
+    for (int i = j + 1; i < n; i++) {
+      a[i][j] = currentVal++;
+    }
+  }
+
+  for (int j = n - 1; j > 0; j--) {
+    for (int i = j - 1; i >= 0; i--) {
+      a[i][j] = currentVal++;
+    }
+  }
+
+  // Print the matrix
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      cout << setw(4) << a[i][j];
+    }
+    cout << endl;
+  }
+}
 
 int main() {
-  const int n = 10;
-  int k = -3;
-  int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-  int tempArr[k];
-  int secondTempArr[n - k];
-
-  // Start manual logic here
-
-  if (k > 0) {
-    for (int i = 0; i < k; i++) {
-      tempArr[i] = arr[n - k + i];
-    }
-
-    for (int i = 0; i < n - k; i++) {
-      secondTempArr[i] = arr[i];
-    }
-
-    for (int i = 0; i < n; i++) {
-      if (i < k) {
-        arr[i] = tempArr[i];
-      } else {
-        arr[i] = secondTempArr[i - k];
-      }
-    }
-  } else {
-    k = k * -1;
-    for (int i = 0; i < k; i++) {
-      tempArr[i] = arr[k - i - 1];
-    }
-
-    for (int i = 0; i < n - k; i++) {
-      if (i < n) {
-        secondTempArr[i] = arr[i];
-        cout << secondTempArr[i];
-      }
-    }
-
-    for (int i = 0; i < n; i++) {
-      if (i < k) {
-        arr[i] = tempArr[i];
-      } else {
-        arr[i] = secondTempArr[i - k];
-      }
-    }
-  }
-
+  int a[20][20];
+  int n = getN();
+  populateMatrix(a, n);
   return 0;
 }
-// to finish
