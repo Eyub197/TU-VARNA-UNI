@@ -1,4 +1,4 @@
-numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+numbers = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]
 
 userInput = int(input("Enter a number beatween 1 and 9: "))
 
