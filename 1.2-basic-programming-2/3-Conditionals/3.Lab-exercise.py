@@ -1,4 +1,4 @@
-def calcPoints():
+def calc_points():
     point_count = 82
     bonus_points = 0
     if point_count <= 80:
@@ -16,7 +16,7 @@ def calcPoints():
     return point_count, bonus_points
 
 
-point_count, bonus_points = calcPoints()
+point_count, bonus_points = calc_points()
 
 print(f"Bonus points {bonus_points:g}")
 print(f"All points {bonus_points + point_count}")
