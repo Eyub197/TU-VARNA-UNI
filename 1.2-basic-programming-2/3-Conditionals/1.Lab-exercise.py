@@ -1,4 +1,4 @@
-def isEven(number):
+def is_even(number):
     if number % 2 == 0:
         print("Even")
         return True
@@ -6,4 +6,4 @@ def isEven(number):
     return False
 
 
-isEven(3)
+is_even(3)
