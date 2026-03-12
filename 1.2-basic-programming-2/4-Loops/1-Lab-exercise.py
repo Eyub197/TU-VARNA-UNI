@@ -3,7 +3,7 @@ numbers = []
 
 
 def populate_array(array, count):
-    for number in range(0, count):
+    for _ in range(0, count):
         array.append(int(input("Enter a number :-) :")))
 
 
