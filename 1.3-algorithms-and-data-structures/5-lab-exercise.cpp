@@ -39,53 +39,70 @@ void processMatrix(int a[20][20], int n) {
   cout << endl;
 }
 
-int main() {
-  int n = getN();
-  int matrixOne[20][20];
-  int matrixTwo[n][n];
-
-  int matrixOneCount = 1;
-  int matrixOneCountHelper = 13;
-  int matriOneSecondHelper = 16;
-  int matrixOneFourthHelper = 17;
-
-  for (int row = 0; row < n; row++) {
-    for (int col = 0; col < n; col++) {
-      if (row == 0) {
-        matrixOne[row][col] = matrixOneCount;
-        matrixOneCount++;
-      }
-
-      if (row > 0 && col == n - 1) {
-        matrixOne[row][col] = matrixOneCount;
-        matrixOneCount++;
-      }
-
-      if (row == n - 1 && col <= n - 1) {
-        matrixOne[row][col] = matrixOneCountHelper;
-        matrixOneCountHelper--;
-        matrixOneCount++;
-      }
-
-      if (row > 0 && row < n - 1 && col == 0) {
-        matrixOne[row][col] = matriOneSecondHelper--;
-      }
-
-      if (row == 1 && col > 0 && col < n - 1) {
-        matrixOne[row][col] = matrixOneFourthHelper++;
-      }
-
-      if (row > 1 && row < n - 1 && col > 2 && col < n - 1) {
-        matrixOne[row][col] = matrixOneFourthHelper++;
-      }
-
-      if (row == n - 2 && col > 0 && col < n - 2) {
-        matrixOne[row][col] = matrixOneFourthHelper--;
-      }
-
-      // you may change the conditional
+void fillMatrix(int a[20][20], int n) {
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      a[i][j] = 0;
     }
   }
 
+  int r = 0, c = 0, dir = 0;
+  int dr[] = {0, 1, 0, -1};
+  int dc[] = {1, 0, -1, 0};
+
+  for (int num = 1; num <= n * n; num++) {
+    a[r][c] = num;
+    int nextR = r + dr[dir];
+    int nextC = c + dc[dir];
+
+    if (nextR < 0 || nextR >= n || nextC < 0 || nextC >= n ||
+        a[nextR][nextC] != 0) {
+      dir = (dir + 1) % 4;
+      nextR = r + dr[dir];
+      nextC = c + dc[dir];
+    }
+
+    r = nextR;
+    c = nextC;
+  }
+}
+
+void fillMatrixB(int a[20][20], int n) {
+  // Initialize matrix to 0
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      a[i][j] = 0;
+    }
+  }
+
+  int r = 0, c = 0, dir = 0;
+  int dr[] = {1, 0, -1, 0};
+  int dc[] = {0, 1, 0, -1};
+
+  for (int num = 1; num <= n * n; num++) {
+    a[r][c] = num;
+    int nextR = r + dr[dir];
+    int nextC = c + dc[dir];
+
+    if (nextR < 0 || nextR >= n || nextC < 0 || nextC >= n ||
+        a[nextR][nextC] != 0) {
+      dir = (dir + 1) % 4;
+      nextR = r + dr[dir];
+      nextC = c + dc[dir];
+    }
+
+    r = nextR;
+    c = nextC;
+  }
+}
+
+int main() {
+  int n = getN();
+  int matrixOne[20][20];
+  int matrixTwo[20][20];
+
+  fillMatrix(matrixOne, n);
+  fillMatrixB(matrixTwo, n);
   processMatrix(matrixOne, n);
+  processMatrix(matrixTwo, n);
 }
