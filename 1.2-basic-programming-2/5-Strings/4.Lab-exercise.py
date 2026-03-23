@@ -1,4 +1,4 @@
-random_text = "This is my text, oddWord please dont read it"
+random_text = "This is my text oddWord please dont read it"
 
 
 def is_word_odd(word):
@@ -8,10 +8,14 @@ def is_word_odd(word):
         return False
 
 
-def show_odd_words(text):
+odd_words = []
+
+
+def populate_odd_words(text):
     for word in text.split():
         if is_word_odd(word):
-            print(word)
+            odd_words.append(word)
 
 
-print(show_odd_words(random_text))
+populate_odd_words(random_text)
+print(odd_words)

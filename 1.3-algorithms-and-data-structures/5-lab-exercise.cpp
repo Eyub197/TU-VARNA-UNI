@@ -68,7 +68,6 @@ void fillMatrix(int a[20][20], int n) {
 }
 
 void fillMatrixB(int a[20][20], int n) {
-  // Initialize matrix to 0
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       a[i][j] = 0;
