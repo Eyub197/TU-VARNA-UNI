@@ -20,7 +20,7 @@ list_of_dicts = [
 def convert_list_of_dicts_to_list_of_values(list_of_dicts):
     result = []
     for dict in list_of_dicts:
-        for key, value in dict.items():
+        for value in dict.values():
             result.append(value)
     return result
 
