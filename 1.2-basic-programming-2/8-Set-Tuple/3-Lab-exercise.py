@@ -8,3 +8,6 @@ def find_second_biggest_number(first_biggest_number, my_set):
 
 
 second_biggest_number = find_second_biggest_number(first_biggest_number, my_set)
+
+print(f"first biggest number: {first_biggest_number}")
+print(f"second biggest number: {second_biggest_number}")
